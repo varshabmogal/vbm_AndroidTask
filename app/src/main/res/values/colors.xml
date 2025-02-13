@@ -10,4 +10,6 @@
     <color name="text_color">#7789a2</color>
     <color name="transparant">#0000ffff</color>
     <color name="grey">#807D7D</color>
+    <color name="red">#E10600</color>
+    <color name="light_red">#FF6D6A</color>
 </resources>

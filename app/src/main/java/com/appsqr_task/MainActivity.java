@@ -141,8 +141,26 @@ public class MainActivity extends AppCompatActivity {
         btnMainCreateTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,CreateTripActivity.class);
-                startActivity(intent);
+
+                if(tvMainSelectCity.getText().toString().equalsIgnoreCase("")||tvMainSelectCity.getText().toString().equalsIgnoreCase("Select City"))
+                {
+                    Toast.makeText(MainActivity.this, "Please select city", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(tvSelectStartDate.getText().toString().equalsIgnoreCase("")||tvSelectStartDate.getText().toString().equalsIgnoreCase("Enter Date"))
+                {
+                    Toast.makeText(MainActivity.this, "Please select start date", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(tvSelectEndDate.getText().toString().equalsIgnoreCase("")||tvSelectEndDate.getText().toString().equalsIgnoreCase("Enter Date"))
+                {
+                    Toast.makeText(MainActivity.this, "Please select end date", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                {
+                    Intent intent = new Intent(MainActivity.this, CreateTripActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         tvSelectEndDate.setOnClickListener(new View.OnClickListener() {

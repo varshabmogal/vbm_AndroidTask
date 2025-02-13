@@ -20,17 +20,17 @@ import java.util.List;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     private List<SelectCityBean> cityList;
-    Context mCtx;
+    Context context;
     OnPositionClickListener onPositionClickListener;
-    public CityAdapter(Context mCtx, List<SelectCityBean> cityList,OnPositionClickListener onPositionClickListener) {
+    public CityAdapter(Context context, List<SelectCityBean> cityList,OnPositionClickListener onPositionClickListener) {
         this.cityList=cityList;
-        this.mCtx = mCtx;
+        this.context = context;
         this.onPositionClickListener = onPositionClickListener;
     }
     @NonNull
     @Override
     public CityAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CityAdapter.ViewHolder(LayoutInflater.from(mCtx).inflate(R.layout.row_city,parent,false));
+        return new CityAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_city,parent,false));
     }
 
     @Override
