@@ -254,63 +254,6 @@ public class TripActivity extends AppCompatActivity {
 
     }
 
-    private void load_trip() {
-        ConnectionDetector connectionDetector = ConnectionDetector.getInstance(TripActivity.this);
-        if (connectionDetector.isConnectionAvailable()) {
-            progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, EndPoints.TRIP_DETAILS1,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            progressDialog.dismiss();
-
-                            //Log.d("response_data", "" + response);
-                            if (response.equals("")) {
-                            } else {
-                                try {
-                                    JSONObject obj = new JSONObject(response);
-                                    JSONArray json = obj.getJSONArray("data");
-                                    Log.d("response_data", "" + response);
-                                    for (int i = 0; i < json.length(); i++)
-                                    {
-                                        JSONObject jsonObjectCity = json.getJSONObject(i);
-                                    /*String title = jsonObjectCity.getString("title").toString();
-                                    String date = jsonObjectCity.getString("date").toString();
-                                    //tvDate.setText(date);
-                                    tvLocation.setText(title);*/
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            progressDialog.dismiss();
-                            // Toast.makeText(Recepi.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-
-                    return params;
-                }
-            };
-            MyVolley.getInstance(TripActivity.this).addToRequestQueue(stringRequest);
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    15000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        }
-        else {
-            progressDialog.dismiss();
-            Toast.makeText(TripActivity.this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show();
-        }
-    }
-
     @Override
     public void setEnterSharedElementCallback(SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
