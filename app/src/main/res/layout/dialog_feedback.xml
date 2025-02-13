@@ -2,48 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rlHeader"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ivDialogFeedbackClose"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/baseline_close_24"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_toRightOf="@+id/ivDialogFeedbackClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Feedback"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
     <LinearLayout
         android:padding="15dp"
-        android:layout_below="@+id/tvHeader"
+        android:layout_below="@+id/rlHeader"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:text="Create a Trip"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/text_color"
-            android:text="Let's Go! Build Your Next Adventure"
-            />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
-            android:text="Trip Name"
+            android:text="Name"
             />
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etCrtTripName"
+            android:id="@+id/etFeedbackName"
             android:background="@drawable/edit_back"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Enter the trip name"
+            android:hint="Enter the name"
             android:padding="6dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
@@ -57,19 +61,18 @@
             android:textStyle="bold"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
-            android:text="Travel Style"
+            android:text="Mobile Number"
             />
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etCrtTripTravelStyle"
+            android:id="@+id/etFeedbackMobile"
             android:background="@drawable/edit_back"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Select your travel style"
+            android:hint="Enter mobile number"
             android:padding="6dp"
-            android:editable="false"
-            android:focusable="false"
+            android:maxLength="10"
+            android:inputType="number"
             android:layout_marginTop="4dp"
-            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
             android:textSize="14sp"
             />
 
@@ -82,27 +85,28 @@
             android:textStyle="bold"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
-            android:text="Trip Description"
+            android:text="Description"
             />
+
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etCrtTripDesc"
-            android:background="@drawable/edit_back"
+            android:id="@+id/etFeedbackDesc"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:hint="Tell us more about the trip"
-            android:padding="6dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/edit_back"
             android:gravity="start"
+            android:hint="Enter description"
+            android:padding="6dp"
             android:textAlignment="textStart"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
+
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCrtTripNext"
+            android:id="@+id/btnFeedbackSubmit"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Next"
+            android:text="Submit"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:background="@drawable/btn_shape"

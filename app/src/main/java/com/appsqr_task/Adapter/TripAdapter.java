@@ -37,25 +37,25 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final PlanedTripBean hero = planedTripList.get(position);
-        holder.tvRowLocation.setText(hero.getcity());
+        final PlanedTripBean model = planedTripList.get(position);
+        holder.tvRowLocation.setText(model.getcity());
 
-        Glide.with(mCtx).load(hero.getImg())
+        Glide.with(mCtx).load(model.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(holder.ivRowtripImage);
 
-        holder.tvRowtripTitle.setText(hero.getTitle());
-        holder.tvRowtripDate.setText(hero.getdate());
-        holder.tvRowtripDuration.setText(hero.getDuration());
+        holder.tvRowtripTitle.setText(model.getTitle());
+        holder.tvRowtripDate.setText(model.getdate());
+        holder.tvRowtripDuration.setText(model.getDuration());
         holder.btnRowViewTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mCtx, TripActivity.class);
-                intent.putExtra("city",hero.getcity());
-                intent.putExtra("date",hero.getdate());
-                intent.putExtra("img",hero.getImg());
-                intent.putExtra("duration",hero.getDuration());
-                intent.putExtra("title",hero.getTitle());
+                intent.putExtra("city",model.getcity());
+                intent.putExtra("date",model.getdate());
+                intent.putExtra("img",model.getImg());
+                intent.putExtra("duration",model.getDuration());
+                intent.putExtra("title",model.getTitle());
                 mCtx.startActivity(intent);
             }
         });

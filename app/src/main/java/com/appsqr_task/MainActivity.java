@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.appsqr_task.Adapter.CityAdapter;
 import com.appsqr_task.Adapter.TripAdapter;
 import com.appsqr_task.Constant.EndPoints;
+import com.appsqr_task.Helper.ConnectionDetector;
 import com.appsqr_task.Helper.MyVolley;
 import com.appsqr_task.Helper.OnPositionClickListener;
 import com.appsqr_task.Helper.SharedPreferenceManager;
@@ -51,7 +53,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private ProgressDialog progressDialog;
+
     AlertDialog dialogCity;
     AlertDialog dialogCreateTrip;
     AlertDialog dialogSelectDate;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferenceManager sp;
     final Calendar myCalendar= Calendar.getInstance();
     String StartDate,EndDate;
-    TransparentProgressDialog pd;
+    TransparentProgressDialog progressDialog;
     List<PlanedTripBean> tripList;
     List<SelectCityBean> cityList;
     private EditText startDate, endDate;
@@ -80,13 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         onClick();
-
-
     }
     private void init()
     {
         sp=new SharedPreferenceManager(MainActivity.this);
-        pd=new TransparentProgressDialog(MainActivity.this,R.drawable.progress);
+        progressDialog=new TransparentProgressDialog(MainActivity.this,R.drawable.progress);
         tvMainSelectCity=findViewById(R.id.tvMainSelectCity);
         btnRowViewTrip=findViewById(R.id.btnRowViewTrip);
         rlMainSelectCity=findViewById(R.id.rlMainSelectCity);
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         tvSelectEndDate=findViewById(R.id.tvSelectEndDate);
         btnMainCreateTrip=findViewById(R.id.btnMainCreateTrip);
         tripList = new ArrayList<>();
+        cityList = new ArrayList<>();
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -230,130 +231,143 @@ public class MainActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void PlannedTripList() {
-        progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.setMessage("Loading.....");
-        progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, EndPoints.TRIP,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        tripList.clear();
-                        //Log.d("response_data", "" + response);
-                        if (response.equals("")) {
-                        } else {
-                            try {
-                                JSONObject obj = new JSONObject(response);
-                                JSONArray json = obj.getJSONArray("data");
-                                Log.d("response_data", "" + response);
-                                for (int i = 0; i < json.length(); i++) {
-                                    JSONObject jsonObjectCity = json.getJSONObject(i);
-                                    String id = jsonObjectCity.getString("id").toString();
-                                    String citys = jsonObjectCity.getString("city").toString();
-                                    String date = jsonObjectCity.getString("date").toString();
-                                    String img = jsonObjectCity.getString("img").toString();
-                                    String title = jsonObjectCity.getString("title").toString();
-                                    String duration = jsonObjectCity.getString("duration").toString();
-                                    PlanedTripBean city = new PlanedTripBean();
-                                    city.setId(id);
-                                    city.setcity(citys);
-                                    city.setdate(date);
-                                    city.setImg(img);
-                                    city.setTitle(title);
-                                    city.setDuration(duration);
-                                    tripList.add(city);
-                                    mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                                    TripAdapter adapter=new TripAdapter(MainActivity.this,tripList);
-                                    mRecyclerView.setAdapter(adapter);
+    private void PlannedTripList()
+    {
+        ConnectionDetector connectionDetector=ConnectionDetector.getInstance(MainActivity.this);
+        if(connectionDetector.isConnectionAvailable()) {
+
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, EndPoints.TRIP,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progressDialog.dismiss();
+                            tripList.clear();
+                            //Log.d("response_data", "" + response);
+                            if (response.equals("")) {
+                            } else {
+                                try {
+                                    JSONObject obj = new JSONObject(response);
+                                    JSONArray json = obj.getJSONArray("data");
+                                    Log.d("response_data", "" + response);
+                                    for (int i = 0; i < json.length(); i++) {
+                                        JSONObject jsonObjectCity = json.getJSONObject(i);
+                                        String id = jsonObjectCity.getString("id").toString();
+                                        String citys = jsonObjectCity.getString("city").toString();
+                                        String date = jsonObjectCity.getString("date").toString();
+                                        String img = jsonObjectCity.getString("img").toString();
+                                        String title = jsonObjectCity.getString("title").toString();
+                                        String duration = jsonObjectCity.getString("duration").toString();
+                                        PlanedTripBean city = new PlanedTripBean();
+                                        city.setId(id);
+                                        city.setcity(citys);
+                                        city.setdate(date);
+                                        city.setImg(img);
+                                        city.setTitle(title);
+                                        city.setDuration(duration);
+                                        tripList.add(city);
+                                        mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                                        TripAdapter adapter = new TripAdapter(MainActivity.this, tripList);
+                                        mRecyclerView.setAdapter(adapter);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            }  catch (JSONException e) {
-                                e.printStackTrace();
                             }
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        // Toast.makeText(Recepi.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            progressDialog.dismiss();
+                            // Toast.makeText(Recepi.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
 
-                return params;
-            }
-        };
-        MyVolley.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    return params;
+                }
+            };
+            MyVolley.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    15000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+        else
+        {
+            progressDialog.dismiss();
+            Toast.makeText(MainActivity.this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void SelectCityAPI() {
-        progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.setMessage("Loading.....");
-        progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, EndPoints.CITY,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        cityList.clear();
-                        //Log.d("response_data", "" + response);
-                        if (response.equals("")) {
-                        } else {
-                            try {
-                                JSONObject obj = new JSONObject(response);
-                                JSONArray json = obj.getJSONArray("data");
-                                Log.d("response_data", "" + response);
-                                for (int i = 0; i < json.length(); i++) {
-                                    JSONObject jsonObjectCity = json.getJSONObject(i);
-                                    String citys = jsonObjectCity.getString("city").toString();
-                                    String country = jsonObjectCity.getString("country").toString();
+        ConnectionDetector connectionDetector = ConnectionDetector.getInstance(MainActivity.this);
+        if (connectionDetector.isConnectionAvailable()) {
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, EndPoints.CITY,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progressDialog.dismiss();
+                            cityList.clear();
+                            //Log.d("response_data", "" + response);
+                            if (response.equals("")) {
+                            } else {
+                                try {
+                                    JSONObject obj = new JSONObject(response);
+                                    JSONArray json = obj.getJSONArray("data");
+                                    Log.d("response_data", "" + response);
+                                    for (int i = 0; i < json.length(); i++) {
+                                        JSONObject jsonObjectCity = json.getJSONObject(i);
+                                        String citys = jsonObjectCity.getString("city").toString();
+                                        String country = jsonObjectCity.getString("country").toString();
 
-                                    SelectCityBean city = new SelectCityBean();
-                                    city.setCity(citys);
-                                    city.setCountry(country);
-                                    cityList.add(city);
-                                    rvDialogCity.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                                    CityAdapter adapter=new CityAdapter(MainActivity.this, cityList, new OnPositionClickListener() {
-                                        @Override
-                                        public void onPositionClick(int position) {
-                                            tvMainSelectCity.setText(cityList.get(position).getCity()+" "+cityList.get(position).getCountry());
-                                            dialogCity.dismiss();
-                                        }
-                                    });
-                                    rvDialogCity.setAdapter(adapter);
+                                        SelectCityBean city = new SelectCityBean();
+                                        city.setCity(citys);
+                                        city.setCountry(country);
+                                        cityList.add(city);
+                                        rvDialogCity.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                                        CityAdapter adapter = new CityAdapter(MainActivity.this, cityList, new OnPositionClickListener() {
+                                            @Override
+                                            public void onPositionClick(int position) {
+                                                tvMainSelectCity.setText(cityList.get(position).getCity() + " " + cityList.get(position).getCountry());
+                                                dialogCity.dismiss();
+                                            }
+                                        });
+                                        rvDialogCity.setAdapter(adapter);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            }  catch (JSONException e) {
-                                e.printStackTrace();
                             }
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        // Toast.makeText(Recepi.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            progressDialog.dismiss();
+                            // Toast.makeText(Recepi.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
 
-                return params;
-            }
-        };
-        MyVolley.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    return params;
+                }
+            };
+            MyVolley.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    15000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } else {
+            progressDialog.dismiss();
+            Toast.makeText(MainActivity.this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }
