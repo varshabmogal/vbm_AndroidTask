@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:padding="15dp"
+        android:layout_below="@+id/tvHeader"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Create a Trip"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text_color"
+            android:text="Let's Go! Build Your Next Adventure"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:text="Trip Name"
+            />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etCrtTripName"
+            android:background="@drawable/edit_back"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Enter the trip name"
+            android:padding="6dp"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:text="Travel Style"
+            />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etCrtTripTravelStyle"
+            android:background="@drawable/edit_back"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Select your travel style"
+            android:padding="6dp"
+            android:editable="false"
+            android:focusable="false"
+            android:layout_marginTop="4dp"
+            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+            android:textSize="14sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:text="Trip Description"
+            />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etCrtTripDesc"
+            android:background="@drawable/edit_back"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:hint="Tell us more about the trip"
+            android:padding="6dp"
+            android:gravity="start"
+            android:textAlignment="textStart"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCrtTripNext"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_shape"
+            />
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>

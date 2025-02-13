@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rlHeader"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ivDialogCityClose"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/baseline_close_24"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_toRightOf="@+id/ivDialogCityClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Where"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_below="@+id/rlHeader"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_toRightOf="@+id/ivDialogTripClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please select a city"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            />
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_back"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etDialogCitySearch"
+                android:background="@color/transparant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Search city"
+                android:padding="4dp"
+                android:textSize="14sp"
+                />
+
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDialogCity"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:layout_margin="6dp"
+                    android:backgroundTint="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivCity"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_margin="6dp"
+                        android:tint="@color/grey"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/baseline_location_on_24"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRowCity"
+                        android:layout_marginStart="3dp"
+                        android:layout_toRightOf="@+id/ivCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Niphad"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRowCityAddress"
+                        android:layout_below="@+id/tvRowCity"
+                        android:layout_toRightOf="@+id/ivCity"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="Near about godavri"
+
+                        android:layout_marginStart="3dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRowCountryIMG"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="4dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/flag"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:layout_margin="6dp"
+                    android:backgroundTint="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivCity1"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_margin="6dp"
+                        android:tint="@color/grey"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/baseline_location_on_24"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRowCity1"
+                        android:layout_marginStart="3dp"
+                        android:layout_toRightOf="@+id/ivCity1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Niphad"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRowCityAddress1"
+                        android:layout_below="@+id/tvRowCity1"
+                        android:layout_toRightOf="@+id/ivCity1"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="Near about godavri"
+                        android:layout_marginStart="3dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color"
+                        />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRowCountryIMG1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="4dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/flag"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
