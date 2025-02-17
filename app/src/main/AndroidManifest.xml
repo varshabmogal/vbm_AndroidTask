@@ -33,13 +33,22 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".KCreateTripActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KTripActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateTripActivity"
             android:exported="false" />
         <activity
             android:name=".TripActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".KotlinTask.DashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
